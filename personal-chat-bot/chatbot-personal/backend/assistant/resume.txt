@@ -1,0 +1,65 @@
+Lind GECI
+Nationality: Kosovar
+Date of birth: 18 Mar 2004
+Place of birth: Prishtine
+Phone number: (+383) 49438421
+Email address: lindgeci1@gmail.com
+LinkedIn: https://www.linkedin.com/in/lind-geci-56b860339/
+Website: https://github.com/lindgeci1
+Website: https://lindgeci.me/
+Home: Dardania Sadik Zeneli str. no.8, 10000 Prishtina (Kosovo)
+
+EDUCATION
+Graduated student of natural sciences "Xhevdet Doda" gymnasium [ 1 Sep 2019 – 20 May 2022 ]
+City: Prishtina | Country: Kosovo | Final grade: 4.62 / 5.00 | Thesis: Graduated student of natural sciences
+
+Certified Junior Programmer / Developer Shkolla Digjitale [ 1 Sep 2017 – 30 Oct 2018 ]
+City: Prishtina | Country: Kosovo | Website: https://shkolladigjitale.com/
+• Programmer Junior
+• Junior App developer
+
+PROJECTS
+[ 3 Jan 2025 – 16 Jul 2025 ] Vehicle Rent Management System
+• Developed a full-stack web application using .NET 9 (C#) for backend REST APIs and ReactJS with TailwindCSS for a modern, responsive, and component-based frontend interface.
+• Implemented Entity Framework Core 9 within an Onion Architecture (Domain, Application, Infrastructure), ensuring SOC, scalability, maintainability, and efficient SQL Server and MongoDB interactions.
+• Developed advanced business features including Stripe-powered payments, live GPS tracking, automated background services, fleet management, and interactive analytics dashboards for data-driven decisions.
+Outcome: A system where users can reserve a vehicle, make prepayments to confirm, pick it up on the selected date, track it live during the rental, and record vehicle conditions before and after use, with final payments including damage adjustments via cash or card, streamlining the rental process and enhancing customer satisfaction.
+Link: https://github.com/lindgeci1/Vehicle-Rent-Management-System
+
+[ 1 Mar 2024 – 10 Feb 2025 ] Hospital Management System
+• Developed a full-stack web application using Node.js for backend REST APIs and ReactJS with TailwindCSS for a modern, responsive, and component-based frontend interface.
+• Implemented a hexagonal architecture (Domain, Application, Infrastructure layers) with MySQL using Sequelize ORM, ensuring separation of concerns, scalability, and maintainability.
+• Integrated advanced healthcare functionalities including Stripe-powered online payments, email notifications, token-based authentication, RBAC, and interactive dashboards for real-time analytics.
+Outcome: A system where patients can schedule appointments online, attend consultations on the selected date, receive generated medical reports, and complete final payments via cash or card, streamlining hospital workflows, reducing manual work, improving data accuracy, and enhancing patient and staff satisfaction.
+Link: https://github.com/lindgeci1/Hospital-Management-System
+
+[ 22 Feb 2025 – 14 Jul 2025 ] Project Management System
+• Developed a full-stack project management system with C#/.NET REST APIs, SQL Server, and a responsive ReactJS + Tailwind CSS frontend for intuitive task tracking and team collaboration.
+• Implemented an Onion Architecture (Domain, Application, Infrastructure, UI) with Entity Framework as ORM, ensuring SOC, scalability, maintainability, and efficient management of tasks, projects, and users.
+• Integrated features including task assignment, progress tracking, dashboards, RBAC, JWT authentication, and automated testing with Selenium and NUnit for secure, reliable team collaboration.
+Outcome: A system that automates user management, project assignment, and team selection, implemented with Selenium and NUnit tests to ensure reliability and reduce manual testing effort.
+Link: https://github.com/lindgeci1/Project-Management-System
+
+[ 3 May 2025 – 3 Aug 2025 ] TickIt - Shopping App
+1. Developing a shopping list management application using PHP/Laravel with Eloquent ORM and PostgreSQL as the relational database, enabling efficient product and market management with robust persistence.
+2. Implemented a Clean/Onion-inspired architecture (Domain, Application, Infrastructure, UI) to enforce separation of concerns, scalability, and maintainability across the system.
+3. Integrated a React Native mobile client to provide a seamless, cross-platform user experience, ensuring real-time interaction with backend services and a consistent UI across iOS and Android.
+Outcome: A modular and scalable shopping platform with React Native integration for an interactive frontend, allowing users to create shopping lists, add items, tick purchased products, and manage product–market assignments for an improved shopping experience.
+Link: https://github.com/lindgeci1/TickIt-Shopping-List-App
+
+SKILLS
+Backend: C# & .NET / Node.js & Express.js / PHP Laravel / Spring Boot / Java / PHP / SQL / MySQL / MongoDB / PostgreSQL / Python
+Frontend: ReactJS / JavaScript / HTML/CSS / VueJS / React Native
+Tools & Integrations: Git & GitHub for version control / Trello / Jira / STRIPE integration / RESTful API integration / Cloudinary / QuestPDF Integration / JSON Web Token (JWT) / Role-Based Access Control (RBAC)
+Architectures & Design Patterns / Concepts: Hexagonal Architecture / Clean Architecture / Onion Architecture / Layered / MVC / Adapter Pattern / Factory Pattern
+Testing & QA: Selenium WebDriver / NUnit / Postman / Swagger
+
+LANGUAGE SKILLS
+Mother tongue(s): Albanian
+Other language(s): English
+LISTENING C2
+READING C2
+WRITING C2
+SPOKEN PRODUCTION C2
+SPOKEN INTERACTION C2
+Levels: A1 and A2: Basic user; B1 and B2: Independent user; C1 and C2: Proficient user
