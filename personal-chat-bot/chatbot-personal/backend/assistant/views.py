@@ -48,6 +48,35 @@ def get_memory(request):
     return Response({'memories': serializer.data}, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def get_chat_history(request):
+    """
+    GET /api/chat/history/
+    Retrieve chat history (user messages and assistant responses).
+    """
+    # Get only memory type entries (chat messages), ordered by creation time
+    memories = AssistantMemory.objects.filter(type='memory').order_by('created_at')
+    
+    # Parse messages from content (format: "User: message" or "Assistant: message")
+    chat_messages = []
+    for memory in memories:
+        content = memory.content
+        if content.startswith('User: '):
+            chat_messages.append({
+                'text': content.replace('User: ', '', 1),
+                'isUser': True,
+                'created_at': memory.created_at.isoformat()
+            })
+        elif content.startswith('Assistant: '):
+            chat_messages.append({
+                'text': content.replace('Assistant: ', '', 1),
+                'isUser': False,
+                'created_at': memory.created_at.isoformat()
+            })
+    
+    return Response({'messages': chat_messages}, status=status.HTTP_200_OK)
+
+
 @ensure_csrf_cookie
 def chat_view(request):
     """

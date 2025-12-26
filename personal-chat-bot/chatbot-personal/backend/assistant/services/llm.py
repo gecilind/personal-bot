@@ -6,6 +6,36 @@ from assistant.services.embeddings import get_embedding
 from assistant.models import AssistantMemory
 
 
+# Check if resume has been ingested (cache to avoid checking on every request)
+_resume_ingested_check = None
+
+def _ensure_resume_ingested():
+    """Check if resume knowledge base exists, if not try to ingest it."""
+    global _resume_ingested_check
+    
+    # Check once per process
+    if _resume_ingested_check is not None:
+        return _resume_ingested_check
+    
+    knowledge_count = AssistantMemory.objects.filter(type='knowledge').count()
+    _resume_ingested_check = knowledge_count > 0
+    
+    if not _resume_ingested_check:
+        # Try to ingest resume automatically
+        try:
+            from assistant.services.ingest_resume import ingest_resume
+            print("[INFO] No resume knowledge found. Attempting to ingest resume...")
+            ingest_resume()
+            _resume_ingested_check = True
+            print("[INFO] Resume successfully ingested!")
+        except Exception as e:
+            print(f"[WARNING] Could not auto-ingest resume: {str(e)}")
+            print("[INFO] Please run: python manage.py ingest_resume")
+            _resume_ingested_check = False
+    
+    return _resume_ingested_check
+
+
 def generate_response(user_message: str) -> dict:
     """
     Generate AI assistant response using RAG (Retrieval Augmented Generation).
@@ -29,6 +59,9 @@ def generate_response(user_message: str) -> dict:
     
     client = OpenAI(api_key=api_key)
     
+    # Ensure resume is ingested before generating response
+    _ensure_resume_ingested()
+    
     # Store user message with embedding
     try:
         user_embedding = get_embedding(user_message)
@@ -42,28 +75,30 @@ def generate_response(user_message: str) -> dict:
         # Log but don't fail
         print(f"Error storing user message: {str(e)}")
     
-    # Get relevant context from vector search
-    context = get_relevant_context(user_message)
+    # Get relevant context from vector search - increase knowledge limit to get more resume content
+    context = get_relevant_context(user_message, knowledge_limit=10, memory_limit=3)
     
     # Build prompt with context
-    knowledge_text = "\n".join([f"- {k}" for k in context['knowledge']])
+    knowledge_text = "\n\n".join([f"{i+1}. {k}" for i, k in enumerate(context['knowledge'])])
     memory_text = "\n".join([f"- {m}" for m in context['memory']])
     
-    system_prompt = """You are a personal AI assistant trained on professional CV data. 
-Use the provided knowledge and memory to answer questions accurately and helpfully.
-If the information is not available in the context, say so politely."""
+    system_prompt = """You are a personal AI assistant that answers questions about Lind Geci based on their professional CV/resume. 
+Your primary source of information is the KNOWLEDGE BASE below which contains detailed information from the CV.
+Always prioritize information from the KNOWLEDGE BASE when answering questions.
+Answer questions accurately, helpfully, and in a professional manner based on the CV data provided."""
     
-    user_prompt = f"""Based on the following knowledge and memory, answer the user's question.
+    user_prompt = f"""Answer the user's question about Lind Geci using the following CV/resume information:
 
-KNOWLEDGE BASE:
-{knowledge_text if knowledge_text else "No relevant knowledge found."}
+=== CV/RESUME KNOWLEDGE BASE ===
+{knowledge_text if knowledge_text else "No knowledge base found. Please note that the resume data may not be loaded."}
 
-PREVIOUS MEMORIES:
-{memory_text if memory_text else "No relevant memories found."}
+=== PREVIOUS CONVERSATION CONTEXT ===
+{memory_text if memory_text else "No previous conversation context."}
 
-USER QUESTION: {user_message}
+=== USER QUESTION ===
+{user_message}
 
-Provide a helpful and accurate response based on the above information."""
+Provide a comprehensive and accurate answer based primarily on the CV/resume knowledge base above. If you cannot find specific information, acknowledge that politely but provide what you can from the available information."""
     
     try:
         response = client.chat.completions.create(

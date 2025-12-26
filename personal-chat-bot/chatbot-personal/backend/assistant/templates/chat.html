@@ -210,6 +210,30 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+        // Load chat history on page load
+        async function loadChatHistory() {
+            try {
+                const response = await fetch('/api/chat/history/');
+                const data = await response.json();
+                
+                if (response.ok && data.messages && data.messages.length > 0) {
+                    // Clear the default welcome message
+                    chatMessages.innerHTML = '';
+                    
+                    // Load all messages from history
+                    data.messages.forEach(msg => {
+                        addMessage(msg.text, msg.isUser);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading chat history:', error);
+                // Keep the default welcome message if loading fails
+            }
+        }
+
+        // Load history when page loads
+        loadChatHistory();
+
         function showError(message) {
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
